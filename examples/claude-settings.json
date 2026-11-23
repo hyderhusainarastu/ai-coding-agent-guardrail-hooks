@@ -1,0 +1,27 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Write|Edit|MultiEdit|NotebookEdit|Bash|Glob|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh -c '[ -f \"$CLAUDE_PROJECT_DIR/tools/guardrails/adapters/claude_code.py\" ] && python3 -I \"$CLAUDE_PROJECT_DIR/tools/guardrails/adapters/claude_code.py\"; exit $?'",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh -c '[ -f \"$CLAUDE_PROJECT_DIR/tools/guardrails/hooks/notify.py\" ] && python3 -I \"$CLAUDE_PROJECT_DIR/tools/guardrails/hooks/notify.py\"; exit 0'",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

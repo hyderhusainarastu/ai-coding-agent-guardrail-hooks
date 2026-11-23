@@ -1,0 +1,9 @@
+{
+  "write_roots": ["${REPO_ROOT}"],
+  "denied_read_globs": ["**/.env", "**/.env.*", "!**/.env.example"],
+  "protected_branches": ["main", "master"],
+  "denied_cmd_patterns": ["--no-verify\\b"],
+  "protected_symlink_targets": [".venv", "venv", "node_modules", "data", "models"],
+  "env_value_globs": [".env", ".env.*", "**/.env", "**/.env.*"],
+  "env_value_min_length": 8
+}

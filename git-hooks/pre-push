@@ -1,0 +1,17 @@
+#!/bin/sh
+# stdin: <local ref> <local sha> <remote ref> <remote sha> per pushed ref.
+HERE=$(cd "$(dirname "$0")" && pwd -P)
+GUARDRAILS_HOOK=pre-push
+. "$HERE/_gate.sh"
+[ "$GUARDRAILS_SKIP" = "1" ] && exit 0
+ZERO=0000000000000000000000000000000000000000
+while read -r _lref lsha _rref rsha; do
+  [ "$lsha" = "$ZERO" ] && continue
+  if [ "$rsha" = "$ZERO" ]; then
+    spec="$lsha --not --remotes"
+  else
+    spec="$rsha..$lsha"
+  fi
+  python3 -I "$HERE/symlink_guard.py" --range "$spec" || exit 1
+done
+exit 0

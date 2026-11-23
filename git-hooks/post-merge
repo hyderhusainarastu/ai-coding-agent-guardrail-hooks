@@ -1,0 +1,5 @@
+#!/bin/sh
+# Warn only; a merge has already happened.
+HERE=$(cd "$(dirname "$0")" && pwd -P)
+python3 -I "$HERE/symlink_guard.py" --post-merge
+exit 0

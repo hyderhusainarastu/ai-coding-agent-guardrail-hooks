@@ -1,0 +1,9 @@
+#!/bin/sh
+# Fail closed: any guard failure blocks the commit.
+HERE=$(cd "$(dirname "$0")" && pwd -P)
+GUARDRAILS_HOOK=pre-commit
+. "$HERE/_gate.sh"
+[ "$GUARDRAILS_SKIP" = "1" ] && exit 0
+python3 -I "$HERE/env_value_guard.py" || exit 1
+python3 -I "$HERE/symlink_guard.py" --staged || exit 1
+exit 0

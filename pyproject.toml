@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-coding-agent-guardrail-hooks"
+version = "0.1.0"
+description = "Tool-neutral guardrails check for AI coding agents, plus git hooks."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+[project.scripts]
+guardrails = "guardrails.cli:main"
+
+[tool.setuptools]
+packages = ["guardrails"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
